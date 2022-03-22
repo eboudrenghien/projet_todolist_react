@@ -4,50 +4,50 @@ import Form from './Form'
 
 
 function AddTask() {
-  const [items, setItems] = useState ([])
+  const [Todos, setTodos] = useState ([])
 
-  const addNewTask = item => {
-    if(!item.text || /^\s*$/.test(item.text)) {
+  const addNewTask = Todo => {
+    if(!Todo.text || /^\s*$/.test(Todo.text)) {
       return
     }
-    const newItems = [item, ...items]
+    const newTodos = [Todo, ...Todos]
 
-    setItems(newItems)
+    setTodos(newTodos)
     
   }
 
-  const updateItem = (itemId, newValue) => {
+  const updateTodo = (TodoId, newValue) => {
     if(!newValue.text || /^\s*$/.test(newValue.text)) {
       return
     }
-    setItems(prev => prev.map(item => (item.id === itemId ? newValue : item)))
+    setTodos(prev => prev.map(Todo => (Todo.id === TodoId ? newValue : Todo)))
   }
 
   const DeleteTask = id => {
-    const deleteArr = [...items].filter(item =>{
-        return item.id !== id
+    const deleteArr = [...Todos].filter(Todo =>{
+        return Todo.id !== id
     })
 
-    setItems(deleteArr)
+    setTodos(deleteArr)
   }
 
-  const completeItem = id => {
-    let updatedItems = items.map(item => {
-      if (item.id === id){
-        item.isComplete = !item.isComplete;
+  const completeTodo = id => {
+    let updatedTodos = Todos.map(Todo => {
+      if (Todo.id === id){
+        Todo.isComplete = !Todo.isComplete;
       }
-      return item
+      return Todo
     })
-    setItems(updatedItems)
+    setTodos(updatedTodos)
   }
 
   return (
     <div className='all-button'>
       <Form onSubmit={addNewTask}/>
-      <div className="edit-list"><Edit items={items} 
-      completeItem={completeItem} 
+      <div className="edit-list"><Edit Todos={Todos} 
+      completeTodo={completeTodo} 
       DeleteTask={DeleteTask} 
-      updateItem={updateItem}/></div>
+      updateTodo={updateTodo}/></div>
     </div>
   )
 }

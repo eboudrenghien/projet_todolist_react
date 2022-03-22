@@ -1,14 +1,14 @@
 import {useState} from 'react'
 import Form from './Form'
 
-function Edit({items, completeItem, DeleteTask, updateItem}) {
+function Edit({Todos, completeTodo, DeleteTask, updateTodo}) {
   const [editTask, setEditTask] = useState({
     id: null,
     value: ''
   })
 
   const submitUpdate = value => {
-    updateItem(editTask.id, value)
+    updateTodo(editTask.id, value)
     setEditTask({
       id: null,
       value: ''
@@ -18,13 +18,13 @@ function Edit({items, completeItem, DeleteTask, updateItem}) {
     return <Form edit={editTask} onSubmit={submitUpdate} />
   }
 
-  return items.map((item, index) =>(
-    <div style={{textDecoration:"lineThrough"}} className={item.isComplete ? 'item-row complete' : 'item-row'} key={index} >
-      <div key={item.id} onClick={() => completeItem(item.id)}>
-        {item.text}
+  return Todos.map((Todo, index) =>(
+    <div style={{textDecoration:"lineThrough"}} className={Todo.isComplete ? 'Todo-row complete' : 'Todo-row'} key={index} >
+      <div key={Todo.id} onClick={() => completeTodo(Todo.id)}>
+        {Todo.text}
         </div>
-        <button onClick={() => DeleteTask(item.id)} className='delete-button'>SUPPRIMER</button>
-        <button onClick={() => setEditTask({ id: item.id, value: item.text})} className='edit-button'>EDITER</button>  
+        <button onClick={() => DeleteTask(Todo.id)} className='delete-button'>SUPPRIMER</button>
+        <button onClick={() => setEditTask({ id: Todo.id, value: Todo.text})} className='edit-button'>EDITER</button>  
     </div>
   
 
